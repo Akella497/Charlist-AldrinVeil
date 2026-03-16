@@ -2,7 +2,7 @@
 // Сохраняет изменённый index.html прямо в GitHub репозиторий
 
 const OWNER      = 'Akella497';           // ✏️ твой GitHub логин
-const REPO       = 'character-sheet';     // ✏️ название репозитория
+const REPO       = 'Charlist-AldrinVeil';     // ✏️ название репозитория
 const FILE_PATH  = 'index.html';
 
 export default async function handler(req, res) {
