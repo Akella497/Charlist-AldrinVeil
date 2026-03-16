@@ -787,7 +787,6 @@
 // ═══════════════════════════════════════════════
 //  КОНФИГУРАЦИЯ
 // ═══════════════════════════════════════════════
-const OWNER_LOGIN = 'Akella497';
 
 // ═══════════════════════════════════════════════
 //  АВТОРИЗАЦИЯ
@@ -803,7 +802,7 @@ async function initAuth() {
     if (!user || !user.login) return;
 
     currentUser = user;
-    isOwner = user.login === OWNER_LOGIN;
+    isOwner = Boolean(user.can_edit);
 
     document.getElementById('login-btn').style.display = 'none';
     document.getElementById('user-info').style.display = 'block';
@@ -814,6 +813,7 @@ async function initAuth() {
     if (isOwner) {
       document.body.classList.add('is-owner');
       document.getElementById('owner-badge').style.display = 'block';
+      document.getElementById('owner-badge').textContent = 'РЕДАКТОР';
     }
   } catch (e) {
     // Не авторизован — ничего не делаем

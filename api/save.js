@@ -8,7 +8,7 @@ const FILE_PATH = 'data.json';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  // Проверяем что запрос строго от владельца
+  // Проверяем, что пользователь имеет право записи в репозиторий
   const cookies = parseCookies(req.headers.cookie || '');
   const login   = cookies.gh_login;
   const token   = cookies.gh_token;
@@ -17,8 +17,9 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Не авторизован' });
   }
 
-  if (login !== OWNER) {
-    return res.status(403).json({ error: 'Нет доступа' });
+  const canEdit = await hasRepoWriteAccess(token);
+  if (!canEdit) {
+    return res.status(403).json({ error: 'Недостаточно прав для сохранения' });
   }
 
   const { data } = req.body;
@@ -77,4 +78,23 @@ function parseCookies(str) {
       return [k, v.join('=')];
     })
   );
+}
+
+
+async function hasRepoWriteAccess(token) {
+  try {
+    const repoRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json'
+      }
+    });
+
+    if (!repoRes.ok) return false;
+
+    const repo = await repoRes.json();
+    return Boolean(repo?.permissions?.push || repo?.permissions?.admin);
+  } catch {
+    return false;
+  }
 }
