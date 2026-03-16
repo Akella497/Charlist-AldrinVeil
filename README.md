@@ -13,3 +13,8 @@ Charlist for Veil of Darkness
 
 
 Логины в `ALLOWED_EDITORS` сравниваются без учёта регистра (например, `Editor` и `editor` одинаковы).
+
+
+## OAuth настройка
+
+`SITE_URL` должен быть каноническим URL сайта (например `https://charlist-aldrin-veil.vercel.app`) и совпадать с callback URL в GitHub OAuth App: `SITE_URL/api/auth/callback`.

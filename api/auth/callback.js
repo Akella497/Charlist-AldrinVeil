@@ -9,6 +9,19 @@ function getRequestBaseUrl(req) {
   return process.env.SITE_URL || '';
 }
 
+function normalizeBaseUrl(url) {
+  return String(url || '').replace(/\/$/, '');
+}
+
+function getOAuthBaseUrl(req) {
+  // Должен совпадать с callback URL, зарегистрированным в GitHub OAuth App.
+  const siteUrl = normalizeBaseUrl(process.env.SITE_URL);
+  if (siteUrl) return siteUrl;
+
+  // Fallback для локальной разработки
+  return normalizeBaseUrl(getRequestBaseUrl(req));
+}
+
 function getReturnTo(req) {
   const { state } = req.query;
   if (!state || typeof state !== 'string') return '/';
@@ -30,7 +43,7 @@ export default async function handler(req, res) {
   const { code } = req.query;
   if (!code) return res.status(400).send('Нет кода авторизации');
 
-  const baseUrl = getRequestBaseUrl(req);
+  const baseUrl = getOAuthBaseUrl(req);
   const redirectUri = `${baseUrl}/api/auth/callback`;
 
   // Меняем code на access_token

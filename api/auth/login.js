@@ -9,6 +9,20 @@ function getRequestBaseUrl(req) {
   return process.env.SITE_URL || '';
 }
 
+function normalizeBaseUrl(url) {
+  return String(url || '').replace(/\/$/, '');
+}
+
+function getOAuthBaseUrl(req) {
+  // Для GitHub OAuth redirect_uri должен совпадать с callback URL в настройках OAuth App.
+  // Поэтому используем фиксированный SITE_URL (канонический домен).
+  const siteUrl = normalizeBaseUrl(process.env.SITE_URL);
+  if (siteUrl) return siteUrl;
+
+  // Fallback для локальной разработки
+  return normalizeBaseUrl(getRequestBaseUrl(req));
+}
+
 function buildState(req) {
   const referer = req.headers.referer || '/';
 
@@ -27,7 +41,7 @@ function buildState(req) {
 
 export default function handler(req, res) {
   const clientId = process.env.GITHUB_CLIENT_ID;
-  const baseUrl = getRequestBaseUrl(req);
+  const baseUrl = getOAuthBaseUrl(req);
   const redirectUri = `${baseUrl}/api/auth/callback`;
   const scope = 'read:user repo';
   const state = buildState(req);
