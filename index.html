@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Имя Персонажа — Лист</title><!-- ✏️ ЗАМЕНИ имя персонажа -->
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/XJSk855s/123.png"><!-- ✏️ ЗАМЕНИ иконку -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:            #05040a;
+      --panel:         #0c0a14;
+      --panel-light:   #141120;
+      --panel-hover:   #1c1830;
+      --muted:         #7a7090;
+      --accent:        #9b6dca;
+      --accent-dark:   #6a3f9e;
+      --accent-bright: #c49de8;
+      --accent-glow:   rgba(155, 109, 202, 0.35);
+      --text:          #d8d0e8;
+      --border:        rgba(155, 109, 202, 0.22);
+      --border-bright: rgba(155, 109, 202, 0.55);
+      --red:           #c94444;
+      --radius:        8px;
+      --shadow:        0 8px 32px rgba(0,0,0,0.85);
+      --glow:          0 0 20px rgba(155,109,202,0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--bg); }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      color: var(--text);
+      line-height: 1.65;
+      padding: 24px;
+      background-image:
+        radial-gradient(ellipse at 15% 40%, rgba(100,50,160,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 70%, rgba(80,30,130,0.05) 0%, transparent 50%);
+    }
+
+    /* ── ФОНОВАЯ ТЕКСТУРА ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239b6dca' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #0a0814 0%, #0e0b1a 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow), 0 0 60px rgba(100,50,180,0.08);
+      overflow: hidden;
+    }
+
+    /* ── ШАПКА ── */
+    header {
+      background: linear-gradient(135deg, #08060f 0%, #110d1e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 36px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(120,60,200,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .portrait {
+      width: 150px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 24px rgba(155,109,202,0.4), var(--shadow);
+      display: block;
+    }
+
+    .portrait-placeholder {
+      width: 150px;
+      height: 190px;
+      border-radius: var(--radius);
+      border: 2px dashed var(--border-bright);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      font-family: 'Cinzel', serif;
+      gap: 8px;
+      background: rgba(155,109,202,0.04);
+    }
+
+    .portrait-placeholder span { font-size: 2rem; opacity: 0.4; }
+
+    .header-info { flex: 1; }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--accent-bright);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(155,109,202,0.5);
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 1rem;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .motto {
+      color: rgba(155,109,202,0.6);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    /* ── ПАНЕЛЬ АВТОРИЗАЦИИ ── */
+    #auth-panel {
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .auth-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-bright);
+      background: rgba(155,109,202,0.1);
+      color: var(--accent-bright);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+
+    .auth-btn:hover {
+      background: rgba(155,109,202,0.22);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .auth-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      background: rgba(155,109,202,0.08);
+      border: 1px solid var(--border);
+    }
+
+    .user-badge img {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+    }
+
+    .user-badge span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--accent-bright);
+    }
+
+    .edit-badge {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(155,109,202,0.2);
+      border: 1px solid var(--accent);
+      color: var(--accent-bright);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+    }
+
+    /* ── УВЕДОМЛЕНИЕ ── */
+    #save-toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      padding: 12px 20px;
+      background: var(--panel-light);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      color: var(--accent-bright);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      box-shadow: var(--glow);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    #save-toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ── ОСНОВНАЯ СЕТКА ── */
+    .container {
+      display: grid;
+      grid-template-columns: 380px 1fr 400px;
+      gap: 24px;
+      padding: 28px 36px;
+    }
+
+    /* ── ПАНЕЛЬ ── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-dark), transparent);
+      margin: 22px 0;
+    }
+
+    /* ── КНОПКИ ДОБАВИТЬ/УДАЛИТЬ ── */
+    .add-btn {
+      background: var(--accent-dark);
+      color: #fff;
+      border: none;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(106,63,158,0.4);
+    }
+    .add-btn:hover { background: var(--accent); transform: rotate(90deg) scale(1.1); }
+
+    .delete-btn, .acc-delete-btn, .talent-delete-btn {
+      position: absolute;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(201,68,68,0.3);
+      opacity: 0;
+    }
+
+    .delete-btn    { top: 10px; right: 40px; }
+    .acc-delete-btn{ top: 10px; right: 10px; }
+    .talent-delete-btn { top: 10px; right: 10px; }
+
+    .item:hover .delete-btn,
+    .item:hover .move-btn,
+    .acc-item:hover .acc-delete-btn,
+    .talent:hover .talent-delete-btn { opacity: 1; }
+
+    .delete-btn:hover, .acc-delete-btn:hover, .talent-delete-btn:hover {
+      background: #e05555; transform: scale(1.15);
+    }
+
+    /* Скрыть кнопки редактирования для гостей */
+    body:not(.is-owner) .add-btn,
+    body:not(.is-owner) .delete-btn,
+    body:not(.is-owner) .acc-delete-btn,
+    body:not(.is-owner) .talent-delete-btn,
+    body:not(.is-owner) .move-btn { display: none !important; }
+
+    body:not(.is-owner) [contenteditable] { pointer-events: none; }
+
+    /* ── ХАРАКТЕРИСТИКИ ── */
+    .stats { display: flex; flex-direction: column; gap: 10px; }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+    .stat:hover { border-color: var(--accent-dark); }
+
+    .stat .label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      color: var(--accent-bright);
+      letter-spacing: 1px;
+    }
+
+    .stat-right { text-align: right; }
+
+    .stat .value {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      min-width: 38px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(106,63,158,0.4);
+    }
+
+    .bar {
+      height: 4px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 6px;
+      width: 120px;
+    }
+    .bar > i {
+      display: block; height: 100%;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent-bright));
+      border-radius: 2px;
+    }
+
+    /* ── ПРЕДМЕТЫ ── */
+    .items { display: flex; flex-direction: column; gap: 10px; }
+
+    .item {
+      padding: 14px 80px 14px 16px;
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-dark);
+      border-radius: var(--radius);
+      transition: all 0.25s;
+      position: relative;
+    }
+    .item:hover {
+      background: var(--panel-hover);
+      border-color: var(--accent);
+      border-left-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .move-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--accent-dark);
+      color: #fff;
+      border: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(106,63,158,0.3);
+      opacity: 0;
+    }
+    .move-btn:hover { background: var(--accent); transform: scale(1.15); }
+
+    .item h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--accent-bright);
+      margin-bottom: 4px;
+    }
+    .item p { color: var(--muted); font-size: 0.9rem; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: rgba(155,109,202,0.12);
+      border: 1px solid var(--accent-dark);
+      color: var(--accent);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ── АККОРДЕОН ── */
+    .acc-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      background: var(--panel-light);
+      overflow: hidden;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .acc-item:hover { border-color: var(--accent-dark); }
+
+    .acc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 44px 14px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .acc-head:hover { background: var(--panel-hover); }
+    .acc-head strong {
+      font-family: 'Cinzel', serif;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .acc-arrow {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: transform 0.3s;
+      margin-right: 8px;
+    }
+    .acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+    .acc-body {
+      display: none;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      line-height: 1.7;
+    }
+    .acc-item.open .acc-body { display: block; }
+
+    /* ── ТАЛАНТЫ ── */
+    .talent {
+      padding: 14px 40px 14px 16px;
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+      border-left: 3px solid transparent;
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .talent:hover {
+      background: var(--panel-hover);
+      border-color: var(--border-bright);
+      border-left-color: var(--accent);
+      transform: translateX(3px);
+    }
+    .talent strong {
+      font-family: 'Cinzel', serif;
+      color: var(--accent-bright);
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .talent > div { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── КНОПКА ПЕРСОНАЖИ ── */
+    .btn-characters {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 11px 22px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 16px rgba(106,63,158,0.4);
+    }
+    .btn-characters:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(155,109,202,0.5);
+    }
+
+    /* ── ФУТЕР ── */
+    footer {
+      padding: 18px 36px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel);
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--panel-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      transition: all 0.25s;
+    }
+    .nav-link:hover { background: var(--accent-dark); color: #fff; border-color: var(--accent-dark); }
+
+    /* ── АДАПТИВ ── */
+    @media (max-width: 1200px) { .container { grid-template-columns: 1fr; } }
+
+    /* ── АНИМАЦИЯ ПОЯВЛЕНИЯ ── */
+    .panel { animation: fadeUp 0.4s ease both; }
+    .panel:nth-child(2) { animation-delay: 0.08s; }
+    .panel:nth-child(3) { animation-delay: 0.16s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="save-toast">✦ Сохранено в репозиторий</div>
+
+<div class="page">
+
+  <!-- ── ШАПКА ── -->
+  <header>
+    <div class="portrait-wrap">
+      <!-- ✏️ ЗАМЕНИ src на ссылку на портрет персонажа, или удали img и оставь placeholder -->
+      <img class="portrait" src="" alt="Портрет"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portrait-placeholder" style="display:none">
+        <span>✦</span>ПОРТРЕТ
+      </div>
+    </div>
+
+    <div class="header-info">
+      <!-- ✏️ ИМЯ ПЕРСОНАЖА -->
+      <h1>Имя Персонажа</h1>
+      <!-- ✏️ ПРОИСХОЖДЕНИЕ · ФРАКЦИЯ · КЛАСС -->
+      <div class="sub">Происхождение · Фракция: Название · Класс</div>
+      <!-- ✏️ ДЕВИЗ ИЛИ ЦИТАТА -->
+      <div class="motto">• Девиз или цитата персонажа •</div>
+    </div>
+
+    <!-- Панель авторизации (управляется JS) -->
+    <div id="auth-panel">
+      <a id="login-btn" class="auth-btn" href="/api/auth/login">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Войти через GitHub
+      </a>
+      <div id="user-info" style="display:none">
+        <div class="user-badge">
+          <img id="user-avatar" src="" alt="">
+          <span id="user-name"></span>
+        </div>
+      </div>
+      <div id="owner-badge" style="display:none">
+        <span class="edit-badge">✦ РЕЖИМ РЕДАКТИРОВАНИЯ</span>
+      </div>
+      <a id="logout-btn" href="/api/auth/logout" style="display:none;font-size:0.75rem;color:var(--muted);text-decoration:none;text-align:right">Выйти</a>
+    </div>
+  </header>
+
+  <!-- ── ОСНОВНАЯ СЕТКА ── -->
+  <main class="container">
+
+    <!-- ═══ КОЛОНКА 1: ХАРАКТЕРИСТИКИ + ИНВЕНТАРЬ ═══ -->
+    <section class="panel">
+
+      <h2>Характеристики</h2>
+      <div class="stats">
+        <!-- ✏️ ЗАМЕНИ значения value и ширину полосы (width в %) -->
+        <div class="stat">
+          <div class="label">Телосложение</div>
+          <div class="stat-right">
+            <div class="value">0</div><!-- ✏️ -->
+            <div class="bar"><i style="width:0%"></i></div><!-- ✏️ 0-6 → 0%-100% -->
+          </div>
+        </div>
+        <div class="stat">
+          <div class="label">Ловкость</div>
+          <div class="stat-right">
+            <div class="value">0</div>
+            <div class="bar"><i style="width:0%"></i></div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="label">Смекалка</div>
+          <div class="stat-right">
+            <div class="value">0</div>
+            <div class="bar"><i style="width:0%"></i></div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="label">Эмпатия</div>
+          <div class="stat-right">
+            <div class="value">0</div>
+            <div class="bar"><i style="width:0%"></i></div>
+          </div>
+        </div>
+        <!-- ✏️ Добавь/убери характеристики по необходимости -->
+      </div>
+
+      <hr>
+
+      <h2>
+        Инвентарь
+        <button class="add-btn" onclick="addItem()">+</button>
+      </h2>
+      <div id="inventory" class="items">
+        <!-- ✏️ ЗАПОЛНИ предметы персонажа -->
+        <div class="item" data-id="item1">
+          <button class="delete-btn" onclick="deleteItem(this)">×</button>
+          <button class="move-btn" onclick="moveToStorage(this)">→</button>
+          <h3>Название предмета <span class="tag">Снаряжение</span></h3><!-- ✏️ -->
+          <p>Описание предмета и его свойства.</p><!-- ✏️ -->
+        </div>
+        <!-- ✏️ Добавь ещё предметы по образцу выше -->
+      </div>
+
+      <h2 style="margin-top:2rem">
+        Хранилище<!-- ✏️ Переименуй если нужно -->
+      </h2>
+      <div id="storage" class="items" style="min-height:50px">
+        <p style="text-align:center;padding:24px;color:var(--muted);font-style:italic;font-size:0.9rem">Пока пусто...</p>
+      </div>
+
+    </section>
+
+    <!-- ═══ КОЛОНКА 2: ДЕТАЛИ + РИТУАЛЫ ═══ -->
+    <section class="panel">
+
+      <h2>
+        Детали
+        <button class="add-btn" onclick="addDetail()">+</button>
+      </h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Описания уникальных предметов и способностей.</p>
+
+      <div id="details">
+        <!-- ✏️ ЗАПОЛНИ детали — разворачивающиеся карточки -->
+        <div class="acc-item" data-id="detail1">
+          <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <strong>Название детали</strong><!-- ✏️ -->
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="tag">Подробно</span>
+              <span class="acc-arrow">▼</span>
+            </div>
+          </div>
+          <div class="acc-body">
+            <p>Подробное описание...</p><!-- ✏️ -->
+          </div>
+        </div>
+        <!-- ✏️ Добавь ещё детали по образцу -->
+      </div>
+
+      <hr>
+
+      <h2>
+        Ритуалы<!-- ✏️ Переименуй раздел если нужно -->
+        <button class="add-btn" onclick="addRitual()">+</button>
+      </h2>
+
+      <div id="rituals">
+        <!-- ✏️ ЗАПОЛНИ ритуалы/умения -->
+        <div class="acc-item" data-id="ritual1">
+          <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <strong>Название ритуала / умения</strong><!-- ✏️ -->
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="tag">Подробно</span>
+              <span class="acc-arrow">▼</span>
+            </div>
+          </div>
+          <div class="acc-body">
+            <p>Описание ритуала и его эффектов.</p><!-- ✏️ -->
+          </div>
+        </div>
+      </div>
+
+      <a class="btn-characters" href="#">✦ Знакомые персонажи</a><!-- ✏️ ЗАМЕНИ href -->
+
+    </section>
+
+    <!-- ═══ КОЛОНКА 3: ТАЛАНТЫ + ДУХИ + ЗАМЕТКИ ═══ -->
+    <aside class="panel">
+
+      <h2>
+        Таланты
+        <button class="add-btn" onclick="addTalent()">+</button>
+      </h2>
+
+      <div id="talents">
+        <!-- ✏️ ЗАПОЛНИ таланты персонажа -->
+        <div class="talent" data-id="talent1">
+          <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
+          <strong>Название таланта</strong><!-- ✏️ -->
+          <div>Описание эффекта таланта.</div><!-- ✏️ -->
+        </div>
+        <!-- ✏️ Добавь ещё таланты по образцу -->
+      </div>
+
+      <hr>
+
+      <!-- ✏️ ПЕРЕИМЕНУЙ раздел или удали если не нужен -->
+      <h2>Спутники / Духи</h2>
+      <div id="companions">
+        <div class="talent" data-id="comp1">
+          <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
+          <strong>Имя спутника</strong><!-- ✏️ -->
+          <div>Описание и статус.</div><!-- ✏️ -->
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>Заметки</h2>
+      <div style="color:var(--muted);font-size:0.9rem;line-height:1.7">
+        <!-- ✏️ Свободный текст для заметок -->
+        <p>Здесь можно писать заметки о персонаже, его истории, связях и прочем.</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- ── ФУТЕР ── -->
+  <footer>
+    <div style="color:var(--muted);font-size:0.85rem">(с) by Akella497</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a class="nav-link" href="#stats">Характеристики</a>
+      <a class="nav-link" href="#details">Детали</a>
+      <a class="nav-link" href="#talents">Таланты</a>
+      <a class="nav-link" href="gm.html">Лист ГМ</a><!-- ✏️ или удали -->
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  КОНФИГУРАЦИЯ
+// ═══════════════════════════════════════════════
+const OWNER_LOGIN = 'Akella497';
+
+// ═══════════════════════════════════════════════
+//  АВТОРИЗАЦИЯ
+// ═══════════════════════════════════════════════
+let currentUser = null;
+let isOwner = false;
+
+async function initAuth() {
+  try {
+    const res = await fetch('/api/auth/user');
+    if (!res.ok) return;
+    const user = await res.json();
+    if (!user || !user.login) return;
+
+    currentUser = user;
+    isOwner = user.login === OWNER_LOGIN;
+
+    document.getElementById('login-btn').style.display = 'none';
+    document.getElementById('user-info').style.display = 'block';
+    document.getElementById('user-avatar').src = user.avatar_url;
+    document.getElementById('user-name').textContent = user.login;
+    document.getElementById('logout-btn').style.display = 'block';
+
+    if (isOwner) {
+      document.body.classList.add('is-owner');
+      document.getElementById('owner-badge').style.display = 'block';
+    }
+  } catch (e) {
+    // Не авторизован — ничего не делаем
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  АККОРДЕОН
+// ═══════════════════════════════════════════════
+function toggleAcc(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════
+//  УДАЛЕНИЕ
+// ═══════════════════════════════════════════════
+function deleteAccItem(btn) {
+  if (!isOwner) return;
+  if (confirm('Удалить этот элемент?')) {
+    btn.parentElement.remove();
+    saveAndCommit();
+  }
+}
+
+function deleteTalent(btn) {
+  if (!isOwner) return;
+  if (confirm('Удалить?')) {
+    btn.parentElement.remove();
+    saveAndCommit();
+  }
+}
+
+function deleteItem(btn) {
+  if (!isOwner) return;
+  if (confirm('Удалить предмет?')) {
+    btn.parentElement.remove();
+    saveAndCommit();
+    checkStoragePlaceholder();
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  ПЕРЕМЕЩЕНИЕ В ХРАНИЛИЩЕ
+// ═══════════════════════════════════════════════
+function checkStoragePlaceholder() {
+  const storage = document.getElementById('storage');
+  const items = storage.querySelectorAll('.item');
+  const ph = storage.querySelector('p');
+  if (items.length === 0 && !ph) {
+    const p = document.createElement('p');
+    p.style.cssText = 'text-align:center;padding:24px;color:var(--muted);font-style:italic;font-size:0.9rem';
+    p.textContent = 'Пока пусто...';
+    storage.appendChild(p);
+  } else if (items.length > 0 && ph) {
+    ph.remove();
+  }
+}
+
+function moveToStorage(btn) {
+  if (!isOwner) return;
+  const item = btn.parentElement;
+  const storage = document.getElementById('storage');
+  const ph = storage.querySelector('p');
+  if (ph) ph.remove();
+  btn.textContent = '←';
+  btn.onclick = () => moveToInventory(btn);
+  storage.appendChild(item);
+  saveAndCommit();
+}
+
+function moveToInventory(btn) {
+  if (!isOwner) return;
+  const item = btn.parentElement;
+  const inv = document.getElementById('inventory');
+  btn.textContent = '→';
+  btn.onclick = () => moveToStorage(btn);
+  inv.appendChild(item);
+  checkStoragePlaceholder();
+  saveAndCommit();
+}
+
+// ═══════════════════════════════════════════════
+//  ДОБАВЛЕНИЕ ЭЛЕМЕНТОВ
+// ═══════════════════════════════════════════════
+function makeEditable(el) {
+  el.querySelectorAll('[contenteditable]').forEach(e => {
+    e.addEventListener('blur', saveAndCommit);
+  });
+}
+
+function addItem() {
+  if (!isOwner) return;
+  const inv = document.getElementById('inventory');
+  const d = document.createElement('div');
+  d.className = 'item';
+  d.dataset.id = 'item_' + Date.now();
+  d.innerHTML = `
+    <button class="delete-btn" onclick="deleteItem(this)">×</button>
+    <button class="move-btn" onclick="moveToStorage(this)">→</button>
+    <h3 contenteditable="true">Новый предмет <span class="tag">Предмет</span></h3>
+    <p contenteditable="true">Описание...</p>`;
+  inv.appendChild(d);
+  makeEditable(d);
+  saveAndCommit();
+}
+
+function addDetail() {
+  if (!isOwner) return;
+  const details = document.getElementById('details');
+  const d = document.createElement('div');
+  d.className = 'acc-item';
+  d.dataset.id = 'detail_' + Date.now();
+  d.innerHTML = `
+    <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <strong contenteditable="true">Новая деталь</strong>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="tag">Подробно</span>
+        <span class="acc-arrow">▼</span>
+      </div>
+    </div>
+    <div class="acc-body">
+      <p contenteditable="true">Описание...</p>
+    </div>`;
+  details.appendChild(d);
+  makeEditable(d);
+  saveAndCommit();
+}
+
+function addRitual() {
+  if (!isOwner) return;
+  const rituals = document.getElementById('rituals');
+  const d = document.createElement('div');
+  d.className = 'acc-item';
+  d.dataset.id = 'ritual_' + Date.now();
+  d.innerHTML = `
+    <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <strong contenteditable="true">Новый ритуал</strong>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="tag">Подробно</span>
+        <span class="acc-arrow">▼</span>
+      </div>
+    </div>
+    <div class="acc-body">
+      <p contenteditable="true">Описание...</p>
+    </div>`;
+  rituals.appendChild(d);
+  makeEditable(d);
+  saveAndCommit();
+}
+
+function addTalent() {
+  if (!isOwner) return;
+  const talents = document.getElementById('talents');
+  const d = document.createElement('div');
+  d.className = 'talent';
+  d.dataset.id = 'talent_' + Date.now();
+  d.innerHTML = `
+    <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
+    <strong contenteditable="true">Новый талант</strong>
+    <div contenteditable="true" style="color:var(--muted)">Описание...</div>`;
+  talents.appendChild(d);
+  makeEditable(d);
+  saveAndCommit();
+}
+
+// ═══════════════════════════════════════════════
+//  СОХРАНЕНИЕ В GITHUB
+// ═══════════════════════════════════════════════
+let saveTimer = null;
+
+function saveAndCommit() {
+  if (!isOwner) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try {
+      const html = document.documentElement.outerHTML;
+      const res = await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: html })
+      });
+      if (res.ok) showToast();
+    } catch (e) {
+      console.error('Ошибка сохранения:', e);
+    }
+  }, 1500);
+}
+
+function showToast() {
+  const t = document.getElementById('save-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════════
+//  ИНИЦИАЛИЗАЦИЯ
+// ═══════════════════════════════════════════════
+window.addEventListener('load', () => {
+  initAuth();
+
+  // Автосохранение при редактировании существующих полей
+  document.querySelectorAll('[contenteditable]').forEach(el => {
+    el.addEventListener('blur', saveAndCommit);
+  });
+});
+</script>
+</body>
+</html>
