@@ -1,9 +1,11 @@
-<html lang="ru"><head>
+<!doctype html>
+<html lang="ru">
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Имя Персонажа — Лист</title><!-- ✏️ ЗАМЕНИ имя персонажа -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/XJSk855s/123.png"><!-- ✏️ ЗАМЕНИ иконку -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&amp;family=EB+Garamond:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:            #05040a;
@@ -560,9 +562,9 @@
     }
   </style>
 </head>
-<body class="is-owner">
+<body>
 
-<div id="save-toast" class="">✦ Сохранено в репозиторий</div>
+<div id="save-toast">✦ Сохранено в репозиторий</div>
 
 <div class="page">
 
@@ -570,8 +572,9 @@
   <header>
     <div class="portrait-wrap">
       <!-- ✏️ ЗАМЕНИ src на ссылку на портрет персонажа, или удали img и оставь placeholder -->
-      <img class="portrait" src="" alt="Портрет" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="display: none;">
-      <div class="portrait-placeholder" style="display: flex;">
+      <img class="portrait" src="" alt="Портрет"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portrait-placeholder" style="display:none">
         <span>✦</span>ПОРТРЕТ
       </div>
     </div>
@@ -587,20 +590,20 @@
 
     <!-- Панель авторизации (управляется JS) -->
     <div id="auth-panel">
-      <a id="login-btn" class="auth-btn" href="/api/auth/login" style="display: none;">
-        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg>
+      <a id="login-btn" class="auth-btn" href="/api/auth/login">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         Войти через GitHub
       </a>
-      <div id="user-info" style="display: block;">
+      <div id="user-info" style="display:none">
         <div class="user-badge">
-          <img id="user-avatar" src="https://avatars.githubusercontent.com/u/183397668?v=4" alt="">
-          <span id="user-name">Akella497</span>
+          <img id="user-avatar" src="" alt="">
+          <span id="user-name"></span>
         </div>
       </div>
-      <div id="owner-badge" style="display: block;">
+      <div id="owner-badge" style="display:none">
         <span class="edit-badge">✦ РЕЖИМ РЕДАКТИРОВАНИЯ</span>
       </div>
-      <a id="logout-btn" href="/api/auth/logout" style="display: block; font-size: 0.75rem; color: var(--muted); text-decoration: none; text-align: right;">Выйти</a>
+      <a id="logout-btn" href="/api/auth/logout" style="display:none;font-size:0.75rem;color:var(--muted);text-decoration:none;text-align:right">Выйти</a>
     </div>
   </header>
 
@@ -681,20 +684,21 @@
 
       <div id="details">
         <!-- ✏️ ЗАПОЛНИ детали — разворачивающиеся карточки -->
-        
+        <div class="acc-item" data-id="detail1">
+          <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <strong>Название детали</strong><!-- ✏️ -->
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="tag">Подробно</span>
+              <span class="acc-arrow">▼</span>
+            </div>
+          </div>
+          <div class="acc-body">
+            <p>Подробное описание...</p><!-- ✏️ -->
+          </div>
+        </div>
         <!-- ✏️ Добавь ещё детали по образцу -->
-      <div class="acc-item open" data-id="detail_1773694578988">
-    <button class="acc-delete-btn" onclick="deleteAccItem(this)">×</button>
-    <div class="acc-head" onclick="toggleAcc(this)">
-      <strong contenteditable="true">Новая деталь</strong>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span class="tag">Подробно</span>
-        <span class="acc-arrow">▼</span>
       </div>
-    </div>
-    <div class="acc-body">
-      <p contenteditable="true">Привет. Как дела?</p>
-    </div></div></div>
 
       <hr>
 
@@ -740,10 +744,7 @@
           <div>Описание эффекта таланта.</div><!-- ✏️ -->
         </div>
         <!-- ✏️ Добавь ещё таланты по образцу -->
-      <div class="talent" data-id="talent_1773694634275">
-    <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
-    <strong contenteditable="true">Что нового?</strong>
-    <div contenteditable="true" style="color:var(--muted)">Описание...</div></div></div>
+      </div>
 
       <hr>
 
@@ -981,6 +982,113 @@ function addTalent() {
 }
 
 // ═══════════════════════════════════════════════
+//  СБОР ДАННЫХ СО СТРАНИЦЫ
+// ═══════════════════════════════════════════════
+function collectData() {
+  const data = { inventory: [], storage: [], details: [], rituals: [], talents: [], companions: [] };
+
+  document.querySelectorAll('#inventory .item').forEach(el => {
+    data.inventory.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  document.querySelectorAll('#storage .item').forEach(el => {
+    data.storage.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  document.querySelectorAll('#details .acc-item').forEach(el => {
+    data.details.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  document.querySelectorAll('#rituals .acc-item').forEach(el => {
+    data.rituals.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  document.querySelectorAll('#talents .talent').forEach(el => {
+    data.talents.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  document.querySelectorAll('#companions .talent').forEach(el => {
+    data.companions.push({ id: el.dataset.id, html: el.innerHTML });
+  });
+  return data;
+}
+
+// ═══════════════════════════════════════════════
+//  ЗАГРУЗКА ДАННЫХ НА СТРАНИЦУ
+// ═══════════════════════════════════════════════
+function applyData(data) {
+  if (!data) return;
+
+  const sections = {
+    inventory:  { container: 'inventory',  cls: 'item',     placeholder: true },
+    storage:    { container: 'storage',    cls: 'item',     placeholder: true },
+    details:    { container: 'details',    cls: 'acc-item', placeholder: false },
+    rituals:    { container: 'rituals',    cls: 'acc-item', placeholder: false },
+    talents:    { container: 'talents',    cls: 'talent',   placeholder: false },
+    companions: { container: 'companions', cls: 'talent',   placeholder: false },
+  };
+
+  for (const [key, cfg] of Object.entries(sections)) {
+    const container = document.getElementById(cfg.container);
+    if (!container || !data[key]) continue;
+
+    // Очищаем только динамические элементы (с data-id начинающимся на new_ / detail_ и т.д.)
+    // Статичные элементы (вшитые в HTML) обновляем по innerHTML
+    const existing = {};
+    container.querySelectorAll(`.${cfg.cls}`).forEach(el => {
+      if (el.dataset.id) existing[el.dataset.id] = el;
+    });
+
+    // Сначала убираем все что есть
+    container.querySelectorAll(`.${cfg.cls}`).forEach(el => el.remove());
+    const ph = container.querySelector('p');
+    if (ph) ph.remove();
+
+    // Восстанавливаем из данных
+    data[key].forEach(item => {
+      const div = document.createElement('div');
+      div.className = cfg.cls;
+      div.dataset.id = item.id;
+      div.innerHTML = item.html;
+      container.appendChild(div);
+      attachHandlers(div, cfg.cls);
+    });
+
+    // Плейсхолдер если пусто
+    if (cfg.placeholder && data[key].length === 0) {
+      const p = document.createElement('p');
+      p.style.cssText = 'text-align:center;padding:24px;color:var(--muted);font-style:italic;font-size:0.9rem';
+      p.textContent = 'Пока пусто...';
+      container.appendChild(p);
+    }
+  }
+}
+
+function attachHandlers(el, cls) {
+  el.querySelectorAll('[contenteditable]').forEach(e => {
+    e.addEventListener('blur', saveAndCommit);
+  });
+  if (cls === 'item') {
+    const del = el.querySelector('.delete-btn');
+    const mov = el.querySelector('.move-btn');
+    if (del) del.onclick = () => deleteItem(del);
+    if (mov) {
+      if (el.parentElement && el.parentElement.id === 'storage') {
+        mov.textContent = '←';
+        mov.onclick = () => moveToInventory(mov);
+      } else {
+        mov.onclick = () => moveToStorage(mov);
+      }
+    }
+  }
+  if (cls === 'acc-item') {
+    const del = el.querySelector('.acc-delete-btn');
+    const head = el.querySelector('.acc-head');
+    if (del) del.onclick = () => deleteAccItem(del);
+    if (head) head.onclick = () => toggleAcc(head);
+  }
+  if (cls === 'talent') {
+    const del = el.querySelector('.talent-delete-btn');
+    if (del) del.onclick = () => deleteTalent(del);
+  }
+}
+
+// ═══════════════════════════════════════════════
 //  СОХРАНЕНИЕ В GITHUB
 // ═══════════════════════════════════════════════
 let saveTimer = null;
@@ -990,13 +1098,14 @@ function saveAndCommit() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try {
-      const html = document.documentElement.outerHTML;
+      const data = collectData();
       const res = await fetch('/api/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: html })
+        body: JSON.stringify({ data })
       });
       if (res.ok) showToast();
+      else console.error('Ошибка сохранения:', await res.text());
     } catch (e) {
       console.error('Ошибка сохранения:', e);
     }
@@ -1012,8 +1121,19 @@ function showToast() {
 // ═══════════════════════════════════════════════
 //  ИНИЦИАЛИЗАЦИЯ
 // ═══════════════════════════════════════════════
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
   initAuth();
+
+  // Загружаем сохранённые данные из GitHub
+  try {
+    const res = await fetch('/api/load');
+    if (res.ok) {
+      const { data } = await res.json();
+      if (data) applyData(data);
+    }
+  } catch (e) {
+    console.warn('Не удалось загрузить данные:', e);
+  }
 
   // Автосохранение при редактировании существующих полей
   document.querySelectorAll('[contenteditable]').forEach(el => {
@@ -1021,6 +1141,5 @@ window.addEventListener('load', () => {
   });
 });
 </script>
-
-
-</body></html>
+</body>
+</html>
