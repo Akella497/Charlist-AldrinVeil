@@ -787,13 +787,11 @@
 // ═══════════════════════════════════════════════
 //  КОНФИГУРАЦИЯ
 // ═══════════════════════════════════════════════
-const OWNER_LOGIN = 'Akella497';
-
 // ═══════════════════════════════════════════════
 //  АВТОРИЗАЦИЯ
 // ═══════════════════════════════════════════════
 let currentUser = null;
-let isOwner = false;
+let canEdit = false;
 
 async function initAuth() {
   try {
@@ -803,7 +801,7 @@ async function initAuth() {
     if (!user || !user.login) return;
 
     currentUser = user;
-    isOwner = user.login === OWNER_LOGIN;
+    canEdit = Boolean(user.can_edit);
 
     document.getElementById('login-btn').style.display = 'none';
     document.getElementById('user-info').style.display = 'block';
@@ -811,7 +809,7 @@ async function initAuth() {
     document.getElementById('user-name').textContent = user.login;
     document.getElementById('logout-btn').style.display = 'block';
 
-    if (isOwner) {
+    if (canEdit) {
       document.body.classList.add('is-owner');
       document.getElementById('owner-badge').style.display = 'block';
     }
@@ -831,7 +829,7 @@ function toggleAcc(el) {
 //  УДАЛЕНИЕ
 // ═══════════════════════════════════════════════
 function deleteAccItem(btn) {
-  if (!isOwner) return;
+  if (!canEdit) return;
   if (confirm('Удалить этот элемент?')) {
     btn.parentElement.remove();
     saveAndCommit();
@@ -839,7 +837,7 @@ function deleteAccItem(btn) {
 }
 
 function deleteTalent(btn) {
-  if (!isOwner) return;
+  if (!canEdit) return;
   if (confirm('Удалить?')) {
     btn.parentElement.remove();
     saveAndCommit();
@@ -847,7 +845,7 @@ function deleteTalent(btn) {
 }
 
 function deleteItem(btn) {
-  if (!isOwner) return;
+  if (!canEdit) return;
   if (confirm('Удалить предмет?')) {
     btn.parentElement.remove();
     saveAndCommit();
@@ -873,7 +871,7 @@ function checkStoragePlaceholder() {
 }
 
 function moveToStorage(btn) {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const item = btn.parentElement;
   const storage = document.getElementById('storage');
   const ph = storage.querySelector('p');
@@ -885,7 +883,7 @@ function moveToStorage(btn) {
 }
 
 function moveToInventory(btn) {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const item = btn.parentElement;
   const inv = document.getElementById('inventory');
   btn.textContent = '→';
@@ -905,7 +903,7 @@ function makeEditable(el) {
 }
 
 function addItem() {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const inv = document.getElementById('inventory');
   const d = document.createElement('div');
   d.className = 'item';
@@ -921,7 +919,7 @@ function addItem() {
 }
 
 function addDetail() {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const details = document.getElementById('details');
   const d = document.createElement('div');
   d.className = 'acc-item';
@@ -944,7 +942,7 @@ function addDetail() {
 }
 
 function addRitual() {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const rituals = document.getElementById('rituals');
   const d = document.createElement('div');
   d.className = 'acc-item';
@@ -967,7 +965,7 @@ function addRitual() {
 }
 
 function addTalent() {
-  if (!isOwner) return;
+  if (!canEdit) return;
   const talents = document.getElementById('talents');
   const d = document.createElement('div');
   d.className = 'talent';
@@ -1094,7 +1092,7 @@ function attachHandlers(el, cls) {
 let saveTimer = null;
 
 function saveAndCommit() {
-  if (!isOwner) return;
+  if (!canEdit) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try {

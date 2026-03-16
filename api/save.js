@@ -5,6 +5,15 @@ const OWNER     = 'Akella497';
 const REPO      = 'character-sheet';
 const FILE_PATH = 'data.json';
 
+function getAllowedEditors() {
+  const editorsFromEnv = (process.env.ALLOWED_EDITORS || '')
+    .split(',')
+    .map(v => v.trim())
+    .filter(Boolean);
+
+  return new Set([OWNER, ...editorsFromEnv]);
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -17,7 +26,8 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Не авторизован' });
   }
 
-  if (login !== OWNER) {
+  const allowedEditors = getAllowedEditors();
+  if (!allowedEditors.has(login)) {
     return res.status(403).json({ error: 'Нет доступа' });
   }
 
