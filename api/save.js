@@ -1,44 +1,47 @@
 // api/save.js
-// Сохраняет изменённый index.html прямо в GitHub репозиторий
+// Сохраняет данные персонажа (JSON) в GitHub репозиторий
 
-const OWNER      = 'Akella497';           // ✏️ твой GitHub логин
-const REPO       = 'Charlist-AldrinVeil';     // ✏️ название репозитория
-const FILE_PATH  = 'index.html';
+const OWNER     = 'Akella497';
+const REPO      = 'character-sheet';
+const FILE_PATH = 'data.json';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  // Проверяем что запрос от владельца
+  // Проверяем что запрос строго от владельца
   const cookies = parseCookies(req.headers.cookie || '');
   const login   = cookies.gh_login;
   const token   = cookies.gh_token;
+
+  if (!login || !token) {
+    return res.status(401).json({ error: 'Не авторизован' });
+  }
 
   if (login !== OWNER) {
     return res.status(403).json({ error: 'Нет доступа' });
   }
 
-  const { content } = req.body;
-  if (!content) return res.status(400).json({ error: 'Нет содержимого' });
+  const { data } = req.body;
+  if (!data) return res.status(400).json({ error: 'Нет данных' });
+
+  const content = JSON.stringify(data, null, 2);
 
   try {
-    // Получаем текущий SHA файла (нужен для обновления)
+    // Получаем текущий SHA файла
+    let sha = null;
     const getRes = await fetch(
       `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`,
       { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
     );
-
-    let sha = null;
     if (getRes.ok) {
       const fileData = await getRes.json();
       sha = fileData.sha;
     }
 
-    // Кодируем контент в base64
+    // Коммитим JSON
     const encoded = Buffer.from(content, 'utf-8').toString('base64');
-
-    // Отправляем коммит
     const body = {
-      message: `✦ Обновление листа персонажа [${new Date().toLocaleString('ru')}]`,
+      message: `✦ Обновление данных [${new Date().toLocaleString('ru')}]`,
       content: encoded,
       ...(sha ? { sha } : {})
     };
@@ -62,15 +65,14 @@ export default async function handler(req, res) {
     }
 
     res.json({ ok: true });
-
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 }
 
-function parseCookies(cookieStr) {
+function parseCookies(str) {
   return Object.fromEntries(
-    cookieStr.split(';').map(c => {
+    str.split(';').map(c => {
       const [k, ...v] = c.trim().split('=');
       return [k, v.join('=')];
     })
