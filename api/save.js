@@ -5,13 +5,27 @@ const OWNER     = 'Akella497';
 const REPO      = 'character-sheet';
 const FILE_PATH = 'data.json';
 
+function normalizeLogin(login) {
+  return String(login || '').trim().toLowerCase();
+}
+
 function getAllowedEditors() {
   const editorsFromEnv = (process.env.ALLOWED_EDITORS || '')
     .split(',')
-    .map(v => v.trim())
+    .map(v => normalizeLogin(v))
     .filter(Boolean);
 
-  return new Set([OWNER, ...editorsFromEnv]);
+  return new Set([normalizeLogin(OWNER), ...editorsFromEnv]);
+}
+
+async function getJsonBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body;
+  if (typeof req.body === 'string' && req.body.trim()) return JSON.parse(req.body);
+
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const rawBody = Buffer.concat(chunks).toString('utf-8').trim();
+  return rawBody ? JSON.parse(rawBody) : {};
 }
 
 export default async function handler(req, res) {
@@ -27,11 +41,12 @@ export default async function handler(req, res) {
   }
 
   const allowedEditors = getAllowedEditors();
-  if (!allowedEditors.has(login)) {
+  if (!allowedEditors.has(normalizeLogin(login))) {
     return res.status(403).json({ error: 'Нет доступа' });
   }
 
-  const { data } = req.body;
+  const payload = await getJsonBody(req);
+  const { data } = payload || {};
   if (!data) return res.status(400).json({ error: 'Нет данных' });
 
   const content = JSON.stringify(data, null, 2);

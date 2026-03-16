@@ -1090,24 +1090,39 @@ function attachHandlers(el, cls) {
 //  СОХРАНЕНИЕ В GITHUB
 // ═══════════════════════════════════════════════
 let saveTimer = null;
+let saveInFlight = false;
+
+async function commitData({ showSavedToast = true, keepalive = false } = {}) {
+  if (!canEdit || saveInFlight) return;
+
+  saveInFlight = true;
+  try {
+    const data = collectData();
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data }),
+      keepalive
+    });
+
+    if (res.ok) {
+      if (showSavedToast) showToast();
+    } else {
+      console.error('Ошибка сохранения:', await res.text());
+    }
+  } catch (e) {
+    console.error('Ошибка сохранения:', e);
+  } finally {
+    saveInFlight = false;
+  }
+}
 
 function saveAndCommit() {
   if (!canEdit) return;
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(async () => {
-    try {
-      const data = collectData();
-      const res = await fetch('/api/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data })
-      });
-      if (res.ok) showToast();
-      else console.error('Ошибка сохранения:', await res.text());
-    } catch (e) {
-      console.error('Ошибка сохранения:', e);
-    }
-  }, 1500);
+  saveTimer = setTimeout(() => {
+    commitData({ showSavedToast: true });
+  }, 500);
 }
 
 function showToast() {
@@ -1136,6 +1151,12 @@ window.addEventListener('load', async () => {
   // Автосохранение при редактировании существующих полей
   document.querySelectorAll('[contenteditable]').forEach(el => {
     el.addEventListener('blur', saveAndCommit);
+  });
+
+  window.addEventListener('pagehide', () => {
+    if (!canEdit) return;
+    clearTimeout(saveTimer);
+    commitData({ showSavedToast: false, keepalive: true });
   });
 });
 </script>

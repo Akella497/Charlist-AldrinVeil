@@ -10,3 +10,6 @@ Charlist for Veil of Darkness
 - `ALLOWED_EDITORS=login1,login2,login3`
 
 Эти логины смогут редактировать и вызывать `/api/save` после авторизации через GitHub.
+
+
+Логины в `ALLOWED_EDITORS` сравниваются без учёта регистра (например, `Editor` и `editor` одинаковы).

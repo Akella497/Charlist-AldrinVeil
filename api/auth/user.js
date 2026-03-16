@@ -3,13 +3,17 @@
 
 const OWNER = 'Akella497';
 
+function normalizeLogin(login) {
+  return String(login || '').trim().toLowerCase();
+}
+
 function getAllowedEditors() {
   const editorsFromEnv = (process.env.ALLOWED_EDITORS || '')
     .split(',')
-    .map(v => v.trim())
+    .map(v => normalizeLogin(v))
     .filter(Boolean);
 
-  return new Set([OWNER, ...editorsFromEnv]);
+  return new Set([normalizeLogin(OWNER), ...editorsFromEnv]);
 }
 
 export default function handler(req, res) {
@@ -26,8 +30,8 @@ export default function handler(req, res) {
   res.json({
     login,
     avatar_url: decodeURIComponent(avatar || ''),
-    can_edit: allowedEditors.has(login),
-    is_owner: login === OWNER
+    can_edit: allowedEditors.has(normalizeLogin(login)),
+    is_owner: normalizeLogin(login) === normalizeLogin(OWNER)
   });
 }
 
