@@ -1,10 +1,5 @@
 {
-  "inventory": [
-    {
-      "id": "item1",
-      "html": "\n          <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n          <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n          <h3>Название предмета <span class=\"tag\">Снаряжение</span></h3><!-- ✏️ -->\n          <p>Описание предмета и его свойства.</p><!-- ✏️ -->\n        "
-    }
-  ],
+  "inventory": [],
   "storage": [],
   "details": [],
   "rituals": [
