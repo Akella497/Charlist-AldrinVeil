@@ -3,6 +3,10 @@
     {
       "id": "item_1773779041843",
       "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Чешуйчатая броня&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">3 прочности. 1 нерушимая против колющих атак.</p>"
+    },
+    {
+      "id": "item_1773779101914",
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Новый предмет <span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Описание...</p>"
     }
   ],
   "storage": [],
