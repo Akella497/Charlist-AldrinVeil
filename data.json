@@ -4,10 +4,5 @@
   "details": [],
   "rituals": [],
   "talents": [],
-  "companions": [
-    {
-      "id": "comp1",
-      "html": "\n          <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n          <strong>Имя спутника</strong><!-- ✏️ -->\n          <div>Описание и статус.</div><!-- ✏️ -->\n        "
-    }
-  ]
+  "companions": []
 }
