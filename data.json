@@ -5,14 +5,14 @@
       "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Чешуйчатая броня&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">3 прочности. 1 нерушимая против колющих атак.</p>"
     },
     {
-      "id": "item_1773779109272",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Кольчуга&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">5 прочности. Режущий урон -1.</p>"
+      "id": "item_1773779131806",
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Праща&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">1 урон, 1 прочность. Дробящее. Ближнее и тихое.</p>"
     }
   ],
   "storage": [
     {
-      "id": "item_1773779131806",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">←</button>\n    <h3 contenteditable=\"true\">Праща&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">1 урон, 1 прочность. Дробящее. Ближнее и тихое.</p>"
+      "id": "item_1773779109272",
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">←</button>\n    <h3 contenteditable=\"true\">Кольчуга&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">5 прочности. Режущий урон -1.</p>"
     }
   ],
   "details": [],
