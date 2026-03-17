@@ -6,7 +6,7 @@
     },
     {
       "id": "item_1773779092018",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Новый предмет <span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Описание...</p>"
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\"><span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Описание...</p>"
     }
   ],
   "storage": [],
