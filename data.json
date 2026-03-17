@@ -6,7 +6,7 @@
   "talents": [
     {
       "id": "talent_1773778945630",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Жесткие методы</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Призрачный договор можно заключать в&nbsp;</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Жесткие методы</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Призрачный договор можно заключать в односторо</div>"
     }
   ],
   "companions": []
