@@ -2,12 +2,7 @@
   "inventory": [],
   "storage": [],
   "details": [],
-  "rituals": [
-    {
-      "id": "ritual1",
-      "html": "\n          <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n          <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n            <strong>Название ритуала / умения</strong><!-- ✏️ -->\n            <div style=\"display:flex;align-items:center;gap:6px\">\n              <span class=\"tag\">Подробно</span>\n              <span class=\"acc-arrow\">▼</span>\n            </div>\n          </div>\n          <div class=\"acc-body\">\n            <p>Описание ритуала и его эффектов.</p><!-- ✏️ -->\n          </div>\n        "
-    }
-  ],
+  "rituals": [],
   "talents": [
     {
       "id": "talent_1773766432725",
