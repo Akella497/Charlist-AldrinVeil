@@ -35,4 +35,12 @@ Charlist for Veil of Darkness
 
 ## OAuth настройка
 
-`SITE_URL` должен быть каноническим URL сайта (например `https://charlist-aldrin-veil.vercel.app`) и совпадать с callback URL в GitHub OAuth App: `SITE_URL/api/auth/callback`.
+По умолчанию OAuth callback строится от текущего домена запроса (того, где пользователь нажал "Войти через GitHub"). Это предотвращает редирект на старый домен.
+
+Если нужен жёстко фиксированный callback-домен, задайте:
+
+- `GITHUB_OAUTH_BASE_URL=https://your-domain.example`
+
+В этом случае callback будет `GITHUB_OAUTH_BASE_URL/api/auth/callback`, и этот URL должен быть добавлен в GitHub OAuth App.
+
+`SITE_URL` используется только как запасной fallback.

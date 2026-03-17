@@ -14,12 +14,16 @@ function normalizeBaseUrl(url) {
 }
 
 function getOAuthBaseUrl(req) {
-  // Должен совпадать с callback URL, зарегистрированным в GitHub OAuth App.
-  const siteUrl = normalizeBaseUrl(process.env.SITE_URL);
-  if (siteUrl) return siteUrl;
+  // 1) Явно заданный базовый URL для OAuth (если нужен фиксированный домен).
+  const oauthBaseUrl = normalizeBaseUrl(process.env.GITHUB_OAUTH_BASE_URL);
+  if (oauthBaseUrl) return oauthBaseUrl;
 
-  // Fallback для локальной разработки
-  return normalizeBaseUrl(getRequestBaseUrl(req));
+  // 2) По умолчанию используем текущий домен запроса, чтобы не уводить на старый деплой.
+  const requestBaseUrl = normalizeBaseUrl(getRequestBaseUrl(req));
+  if (requestBaseUrl) return requestBaseUrl;
+
+  // 3) Последний fallback.
+  return normalizeBaseUrl(process.env.SITE_URL);
 }
 
 function getReturnTo(req) {
