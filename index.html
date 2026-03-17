@@ -896,10 +896,15 @@ function moveToInventory(btn) {
 // ═══════════════════════════════════════════════
 //  ДОБАВЛЕНИЕ ЭЛЕМЕНТОВ
 // ═══════════════════════════════════════════════
-function makeEditable(el) {
-  el.querySelectorAll('[contenteditable]').forEach(e => {
+function bindEditableListeners(root = document) {
+  root.querySelectorAll('[contenteditable]').forEach(e => {
+    e.addEventListener('input', saveAndCommit);
     e.addEventListener('blur', saveAndCommit);
   });
+}
+
+function makeEditable(el) {
+  bindEditableListeners(el);
 }
 
 function addItem() {
@@ -1058,9 +1063,7 @@ function applyData(data) {
 }
 
 function attachHandlers(el, cls) {
-  el.querySelectorAll('[contenteditable]').forEach(e => {
-    e.addEventListener('blur', saveAndCommit);
-  });
+  bindEditableListeners(el);
   if (cls === 'item') {
     const del = el.querySelector('.delete-btn');
     const mov = el.querySelector('.move-btn');
@@ -1091,9 +1094,15 @@ function attachHandlers(el, cls) {
 // ═══════════════════════════════════════════════
 let saveTimer = null;
 let saveInFlight = false;
+let saveQueued = false;
 
 async function commitData({ showSavedToast = true, keepalive = false } = {}) {
-  if (!canEdit || saveInFlight) return;
+  if (!canEdit) return;
+
+  if (saveInFlight) {
+    saveQueued = true;
+    return;
+  }
 
   saveInFlight = true;
   try {
@@ -1114,13 +1123,19 @@ async function commitData({ showSavedToast = true, keepalive = false } = {}) {
     console.error('Ошибка сохранения:', e);
   } finally {
     saveInFlight = false;
+    if (saveQueued) {
+      saveQueued = false;
+      commitData({ showSavedToast: false });
+    }
   }
 }
 
 function saveAndCommit() {
   if (!canEdit) return;
+  saveQueued = true;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
+    saveQueued = false;
     commitData({ showSavedToast: true });
   }, 500);
 }
@@ -1149,8 +1164,20 @@ window.addEventListener('load', async () => {
   }
 
   // Автосохранение при редактировании существующих полей
-  document.querySelectorAll('[contenteditable]').forEach(el => {
-    el.addEventListener('blur', saveAndCommit);
+  bindEditableListeners(document);
+
+  window.addEventListener('pagehide', () => {
+    if (!canEdit) return;
+    clearTimeout(saveTimer);
+    saveQueued = false;
+    commitData({ showSavedToast: false, keepalive: true });
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'hidden' || !canEdit) return;
+    clearTimeout(saveTimer);
+    saveQueued = false;
+    commitData({ showSavedToast: false, keepalive: true });
   });
 
   window.addEventListener('pagehide', () => {

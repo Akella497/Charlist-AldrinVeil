@@ -1,29 +1,9 @@
 // api/auth/callback.js
 // GitHub перенаправляет сюда после авторизации
 
-function getRequestBaseUrl(req) {
-  const proto = req.headers['x-forwarded-proto'] || 'https';
-  const host = req.headers['x-forwarded-host'] || req.headers.host;
-
-  if (host) return `${proto}://${host}`;
-  return process.env.SITE_URL || '';
-}
-
-function normalizeBaseUrl(url) {
-  return String(url || '').replace(/\/$/, '');
-}
-
-function getOAuthBaseUrl(req) {
-  // 1) Явно заданный базовый URL для OAuth (если нужен фиксированный домен).
-  const oauthBaseUrl = normalizeBaseUrl(process.env.GITHUB_OAUTH_BASE_URL);
-  if (oauthBaseUrl) return oauthBaseUrl;
-
-  // 2) По умолчанию используем текущий домен запроса, чтобы не уводить на старый деплой.
-  const requestBaseUrl = normalizeBaseUrl(getRequestBaseUrl(req));
-  if (requestBaseUrl) return requestBaseUrl;
-
-  // 3) Последний fallback.
-  return normalizeBaseUrl(process.env.SITE_URL);
+function getConfiguredRedirectUri() {
+  const callbackUrl = String(process.env.GITHUB_OAUTH_CALLBACK_URL || '').trim();
+  return callbackUrl || null;
 }
 
 function getReturnTo(req) {
@@ -47,22 +27,27 @@ export default async function handler(req, res) {
   const { code } = req.query;
   if (!code) return res.status(400).send('Нет кода авторизации');
 
-  const baseUrl = getOAuthBaseUrl(req);
-  const redirectUri = `${baseUrl}/api/auth/callback`;
+  const redirectUri = getConfiguredRedirectUri();
 
   // Меняем code на access_token
+  const payload = {
+    client_id: process.env.GITHUB_CLIENT_ID,
+    client_secret: process.env.GITHUB_CLIENT_SECRET,
+    code
+  };
+
+  // redirect_uri должен быть идентичен параметру в authorize-запросе (если он там был).
+  if (redirectUri) {
+    payload.redirect_uri = redirectUri;
+  }
+
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      Accept: 'application/json'
     },
-    body: JSON.stringify({
-      client_id: process.env.GITHUB_CLIENT_ID,
-      client_secret: process.env.GITHUB_CLIENT_SECRET,
-      code,
-      redirect_uri: redirectUri
-    })
+    body: JSON.stringify(payload)
   });
 
   const tokenData = await tokenRes.json();

@@ -35,12 +35,14 @@ Charlist for Veil of Darkness
 
 ## OAuth настройка
 
-По умолчанию OAuth callback строится от текущего домена запроса (того, где пользователь нажал "Войти через GitHub"). Это предотвращает редирект на старый домен.
+Чтобы избежать ошибки `redirect_uri is not associated with this application`:
 
-Если нужен жёстко фиксированный callback-домен, задайте:
+- В GitHub OAuth App должен быть корректно задан **Authorization callback URL**.
+- В приложении можно (и рекомендуется) задать ту же ссылку в переменной:
+  - `GITHUB_OAUTH_CALLBACK_URL=https://your-domain.example/api/auth/callback`
 
-- `GITHUB_OAUTH_BASE_URL=https://your-domain.example`
+Поведение:
+- Если `GITHUB_OAUTH_CALLBACK_URL` задан — он передаётся как `redirect_uri` в authorize/token exchange.
+- Если не задан — `redirect_uri` не передаётся вообще, и GitHub использует callback URL из настроек OAuth App.
 
-В этом случае callback будет `GITHUB_OAUTH_BASE_URL/api/auth/callback`, и этот URL должен быть добавлен в GitHub OAuth App.
-
-`SITE_URL` используется только как запасной fallback.
+`SITE_URL` больше не участвует в формировании OAuth `redirect_uri`.
