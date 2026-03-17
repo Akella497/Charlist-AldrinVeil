@@ -29,7 +29,7 @@
   "companions": [
     {
       "id": "comp_1773779865174",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Судья Дрейк</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Описание и статус...</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Судья Дрейк</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Странная женщина, но она, кажется, может помочь с законом, если&nbsp;</div>"
     }
   ]
 }
