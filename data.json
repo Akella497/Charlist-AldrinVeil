@@ -33,7 +33,7 @@
     },
     {
       "id": "comp_1773779913332",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Мадам Тесслин</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Знает многих в этом городе. Если нужно будет вызнать что-нибудь о жителях Дасквола, то стоит непременно обращаться к н</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Мадам Тесслин</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Знает многих в этом городе. Если нужно будет вызнать что-нибудь о жителях Дасквола, то стоит непременно обращаться к ней.</div>"
     }
   ]
 }
