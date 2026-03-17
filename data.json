@@ -22,6 +22,10 @@
     {
       "id": "talent1",
       "html": "\n          <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n          <strong>Название таланта</strong><!-- ✏️ -->\n          <div>Описание эффекта таланта.</div><!-- ✏️ -->\n        "
+    },
+    {
+      "id": "talent_1773766393462",
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Новый талант</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Описание...</div>"
     }
   ],
   "companions": [
