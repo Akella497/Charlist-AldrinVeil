@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Имя Персонажа — Лист</title><!-- ✏️ ЗАМЕНИ имя персонажа -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/XJSk855s/123.png"><!-- ✏️ ЗАМЕНИ иконку -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:            #080501;
@@ -30,9 +30,10 @@
     html, body { height: 100%; background: var(--bg); }
 
     body {
-      font-family: 'EB Garamond', Georgia, serif;
+      font-family: 'Philosopher', Georgia, sans-serif;
+      font-size: 18px;
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.7;
       padding: 24px;
       background-image:
         radial-gradient(ellipse at 15% 40%, rgba(160, 90, 20, 0.09) 0%, transparent 55%),
@@ -140,14 +141,14 @@
 
     .sub {
       color: var(--muted);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-style: italic;
       margin-bottom: 10px;
     }
 
     .motto {
       color: rgba(200, 124, 32, 0.65);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-style: italic;
     }
 
@@ -423,7 +424,7 @@
       color: var(--accent-bright);
       margin-bottom: 4px;
     }
-    .item p { color: var(--muted); font-size: 0.9rem; }
+    .item p { color: var(--muted); font-size: 1rem; }
 
     .tag {
       display: inline-block;
@@ -463,7 +464,7 @@
     .acc-head strong {
       font-family: 'Cinzel', serif;
       color: var(--accent);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     .acc-arrow {
@@ -478,9 +479,9 @@
       display: none;
       padding: 14px 16px;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 1rem;
       border-top: 1px solid var(--border);
-      line-height: 1.7;
+      line-height: 1.75;
     }
     .acc-item.open .acc-body { display: block; }
 
@@ -508,7 +509,7 @@
       display: block;
       margin-bottom: 4px;
     }
-    .talent > div { color: var(--muted); font-size: 0.88rem; }
+    .talent > div { color: var(--muted); font-size: 1rem; }
 
     /* ── КНОПКА ПЕРСОНАЖИ ── */
     .btn-characters {
@@ -690,7 +691,7 @@
         Детали
         <button class="add-btn" onclick="addDetail()">+</button>
       </h2>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Описания уникальных предметов и способностей.</p>
+      <p style="color:var(--muted);font-size:1rem;margin-bottom:14px">Описания уникальных предметов и способностей.</p>
 
       <div id="details">
         <!-- ✏️ ЗАПОЛНИ детали — разворачивающиеся карточки -->
@@ -771,7 +772,7 @@
       <hr>
 
       <h2>Заметки</h2>
-      <div style="color:var(--muted);font-size:0.9rem;line-height:1.7">
+      <div style="color:var(--muted);font-size:1rem;line-height:1.75">
         <!-- ✏️ Свободный текст для заметок -->
         <p>Здесь можно писать заметки о персонаже, его истории, связях и прочем.</p>
       </div>
