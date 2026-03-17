@@ -1,0 +1,33 @@
+{
+  "inventory": [
+    {
+      "id": "item1",
+      "html": "\n          <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n          <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n          <h3>Название предмета <span class=\"tag\">Снаряжение</span></h3><!-- ✏️ -->\n          <p>Описание предмета и его свойства.</p><!-- ✏️ -->\n        "
+    }
+  ],
+  "storage": [],
+  "details": [
+    {
+      "id": "detail1",
+      "html": "\n          <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n          <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n            <strong>Название детали</strong><!-- ✏️ -->\n            <div style=\"display:flex;align-items:center;gap:6px\">\n              <span class=\"tag\">Подробно</span>\n              <span class=\"acc-arrow\">▼</span>\n            </div>\n          </div>\n          <div class=\"acc-body\">\n            <p>Подробное описание...</p><!-- ✏️ -->\n          </div>\n        "
+    }
+  ],
+  "rituals": [
+    {
+      "id": "ritual1",
+      "html": "\n          <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n          <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n            <strong>Название ритуала / умения</strong><!-- ✏️ -->\n            <div style=\"display:flex;align-items:center;gap:6px\">\n              <span class=\"tag\">Подробно</span>\n              <span class=\"acc-arrow\">▼</span>\n            </div>\n          </div>\n          <div class=\"acc-body\">\n            <p>Описание ритуала и его эффектов.</p><!-- ✏️ -->\n          </div>\n        "
+    }
+  ],
+  "talents": [
+    {
+      "id": "talent1",
+      "html": "\n          <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n          <strong>Название таланта</strong><!-- ✏️ -->\n          <div>Описание эффекта таланта.</div><!-- ✏️ -->\n        "
+    }
+  ],
+  "companions": [
+    {
+      "id": "comp1",
+      "html": "\n          <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n          <strong>Имя спутника</strong><!-- ✏️ -->\n          <div>Описание и статус.</div><!-- ✏️ -->\n        "
+    }
+  ]
+}
