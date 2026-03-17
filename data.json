@@ -25,7 +25,7 @@
     },
     {
       "id": "talent_1773766401320",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">123</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Описание...</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">123</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">123</div>"
     }
   ],
   "companions": [
