@@ -13,9 +13,11 @@ Charlist for Veil of Darkness
 ## Настройка репозитория хранения
 
 По умолчанию данные сохраняются в:
-- owner: `Akella497`
-- repo: `character-sheet`
+- owner: `GITHUB_REPO_OWNER` или (на Vercel) `VERCEL_GIT_REPO_OWNER`
+- repo: `GITHUB_REPO_NAME` или (на Vercel) `VERCEL_GIT_REPO_SLUG`
 - file: `data.json`
+
+Если эти переменные не заданы, используется fallback `Akella497/Charlist-AldrinVeil`.
 
 Можно переопределить:
 - `GITHUB_REPO_OWNER`

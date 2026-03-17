@@ -1,7 +1,7 @@
 // api/auth/user.js
 // Возвращает данные текущего авторизованного пользователя
 
-const OWNER = process.env.GITHUB_REPO_OWNER || 'Akella497';
+const OWNER = process.env.GITHUB_REPO_OWNER || process.env.VERCEL_GIT_REPO_OWNER || 'Akella497';
 
 function normalizeLogin(login) {
   return String(login || '').trim().toLowerCase();
