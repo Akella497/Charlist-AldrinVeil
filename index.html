@@ -760,11 +760,11 @@
       <hr>
 
       <!-- ✏️ ПЕРЕИМЕНУЙ раздел или удали если не нужен -->
-      <h2>Спутники / Духи</h2>
+     <h2>Знакомые лица<button class="add-btn" onclick="addCompanion()">+</button></h2>
       <div id="companions">
         <div class="talent" data-id="comp1">
           <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
-          <strong>Имя спутника</strong><!-- ✏️ -->
+          <strong>Имя знакомого</strong><!-- ✏️ -->
           <div>Описание и статус.</div><!-- ✏️ -->
         </div>
       </div>
@@ -986,6 +986,21 @@ function addTalent() {
     <strong contenteditable="true">Новый талант</strong>
     <div contenteditable="true" style="color:var(--muted)">Описание...</div>`;
   talents.appendChild(d);
+  makeEditable(d);
+  saveAndCommit();
+}
+
+  function addCompanion() {
+  if (!canEdit) return;
+  const companions = document.getElementById('companions');
+  const d = document.createElement('div');
+  d.className = 'talent';
+  d.dataset.id = 'comp_' + Date.now();
+  d.innerHTML = `
+    <button class="talent-delete-btn" onclick="deleteTalent(this)">×</button>
+    <strong contenteditable="true">Новый знакомый</strong>
+    <div contenteditable="true" style="color:var(--muted)">Описание и статус...</div>`;
+  companions.appendChild(d);
   makeEditable(d);
   saveAndCommit();
 }
