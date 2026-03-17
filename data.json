@@ -6,12 +6,7 @@
     }
   ],
   "storage": [],
-  "details": [
-    {
-      "id": "detail1",
-      "html": "\n          <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n          <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n            <strong>Название детали</strong><!-- ✏️ -->\n            <div style=\"display:flex;align-items:center;gap:6px\">\n              <span class=\"tag\">Подробно</span>\n              <span class=\"acc-arrow\">▼</span>\n            </div>\n          </div>\n          <div class=\"acc-body\">\n            <p>Подробное описание...</p><!-- ✏️ -->\n          </div>\n        "
-    }
-  ],
+  "details": [],
   "rituals": [
     {
       "id": "ritual1",
@@ -30,6 +25,10 @@
     {
       "id": "talent_1773766423751",
       "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">321</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">321</div>"
+    },
+    {
+      "id": "talent_1773766432725",
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">123</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">123</div>"
     }
   ],
   "companions": [
