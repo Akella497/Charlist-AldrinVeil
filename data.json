@@ -7,6 +7,10 @@
     {
       "id": "talent_1773778945630",
       "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Жесткие методы</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Призрачный договор можно заключать в одностороннем порядке. Достаточно коснуться противника единожды.</div>"
+    },
+    {
+      "id": "talent_1773778990221",
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Новый талант</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Описание...</div>"
     }
   ],
   "companions": []
