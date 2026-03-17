@@ -1,9 +1,9 @@
 // api/save.js
 // Сохраняет данные персонажа (JSON) в GitHub репозиторий
 
-const OWNER     = 'Akella497';
-const REPO      = 'character-sheet';
-const FILE_PATH = 'data.json';
+const OWNER = process.env.GITHUB_REPO_OWNER || 'Akella497';
+const REPO = process.env.GITHUB_REPO_NAME || 'character-sheet';
+const FILE_PATH = process.env.GITHUB_DATA_FILE || 'data.json';
 
 function normalizeLogin(login) {
   return String(login || '').trim().toLowerCase();
@@ -28,13 +28,18 @@ async function getJsonBody(req) {
   return rawBody ? JSON.parse(rawBody) : {};
 }
 
+function getCommitToken(cookies) {
+  // Предпочтительно использовать сервисный токен, чтобы редакторам не требовался прямой write-доступ к репозиторию.
+  // Если переменная не задана, используем пользовательский OAuth токен (старое поведение).
+  return process.env.GITHUB_REPO_TOKEN || cookies.gh_token;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  // Проверяем что запрос строго от владельца
   const cookies = parseCookies(req.headers.cookie || '');
-  const login   = cookies.gh_login;
-  const token   = cookies.gh_token;
+  const login = cookies.gh_login;
+  const token = getCommitToken(cookies);
 
   if (!login || !token) {
     return res.status(401).json({ error: 'Не авторизован' });
