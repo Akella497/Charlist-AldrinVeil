@@ -10,7 +10,7 @@
     },
     {
       "id": "talent_1773778990221",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Высшее общество</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">При обмане и запугивании представителей высшего общества используется модификатор +2 к влияниб</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Высшее общество</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">При обмане и запугивании представителей высшего общества используется модификатор +2 к влияни</div>"
     }
   ],
   "companions": []
