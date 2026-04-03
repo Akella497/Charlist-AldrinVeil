@@ -17,7 +17,7 @@
   "details": [
     {
       "id": "detail_1775219270644",
-      "html": "\n    <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n    <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n      <strong contenteditable=\"true\">Рука Котара (унркел</strong>\n      <div style=\"display:flex;align-items:center;gap:6px\">\n        <span class=\"tag\">Подробно</span>\n        <span class=\"acc-arrow\">▼</span>\n      </div>\n    </div>\n    <div class=\"acc-body\">\n      <p contenteditable=\"true\">Описание...</p>\n    </div>"
+      "html": "\n    <button class=\"acc-delete-btn\" onclick=\"deleteAccItem(this)\">×</button>\n    <div class=\"acc-head\" onclick=\"toggleAcc(this)\">\n      <strong contenteditable=\"true\">Рука Котара (унркельный</strong>\n      <div style=\"display:flex;align-items:center;gap:6px\">\n        <span class=\"tag\">Подробно</span>\n        <span class=\"acc-arrow\">▼</span>\n      </div>\n    </div>\n    <div class=\"acc-body\">\n      <p contenteditable=\"true\">Описание...</p>\n    </div>"
     }
   ],
   "rituals": [
