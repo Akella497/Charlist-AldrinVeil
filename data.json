@@ -37,7 +37,7 @@
     },
     {
       "id": "talent_1776502557547",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Девять жизней</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Второй бросок т</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Девять жизней</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Второй бросок травмы при&nbsp;</div>"
     }
   ],
   "companions": [
