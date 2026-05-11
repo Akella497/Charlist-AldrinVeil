@@ -2,7 +2,7 @@
   "inventory": [
     {
       "id": "item_1778511573155",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Новый предмет <span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Качество 4</p>"
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Нт <span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Качество 4</p>"
     }
   ],
   "storage": [],
