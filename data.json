@@ -10,7 +10,7 @@
     },
     {
       "id": "item_1778511607377",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Винтовка&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Качество 3, Стрельба</p>"
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Винтовка&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Качество 3, Ур</p>"
     }
   ],
   "storage": [],
