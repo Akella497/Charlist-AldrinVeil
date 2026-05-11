@@ -6,7 +6,7 @@
     },
     {
       "id": "item_1778511593027",
-      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Шикарный костюм&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\">Опе...</p>"
+      "html": "\n    <button class=\"delete-btn\" onclick=\"deleteItem(this)\">×</button>\n    <button class=\"move-btn\" onclick=\"moveToStorage(this)\">→</button>\n    <h3 contenteditable=\"true\">Шикарный костюм&nbsp;<span class=\"tag\">Предмет</span></h3>\n    <p contenteditable=\"true\"><br></p>"
     }
   ],
   "storage": [],
