@@ -41,7 +41,7 @@
     },
     {
       "id": "talent_1778511501942",
-      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Новый талант</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Описание...</div>"
+      "html": "\n    <button class=\"talent-delete-btn\" onclick=\"deleteTalent(this)\">×</button>\n    <strong contenteditable=\"true\">Аргументирование</strong>\n    <div contenteditable=\"true\" style=\"color:var(--muted)\">Влияние через Смекалку.</div>"
     }
   ],
   "companions": [
